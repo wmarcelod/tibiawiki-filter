@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>TibiaWiki Filtro - Teste</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { font-family: sans-serif; padding: 20px; background: #f8f8f2; max-width: 1200px; margin: auto; }
+  table.sortable { border-collapse: collapse; width: 100%; background: #fff; margin-bottom: 30px; }
+  table.sortable th, table.sortable td { border: 1px solid #ccc; padding: 4px 8px; font-size: 12px; text-align: left; }
+  table.sortable th { background: #e8d8a8; }
+  h2 { margin-top: 40px; color: #6b4a1a; }
+</style>
+</head>
+<body>
+<h1>Teste de filtro dinâmico</h1>
+
+<h2>Armaduras (colunas: Nome, Lvl, Voc, Arm, Bônus, Proteção, Slots, Tier, Peso)</h2>
+<table class="sortable">
+<tbody>
+<tr><th><small>Nome</small></th><th></th><th><small>Lvl</small></th><th><small>Voc</small></th><th><small>Arm</small></th><th><small>Bônus</small></th><th><small>Proteção</small></th><th><small>Slots</small></th><th><small>Tier</small></th><th><small>Peso</small></th></tr>
+<tr><td>Albino Plate</td><td></td><td>0</td><td>Todas</td><td>11</td><td>Nenhum</td><td>Nenhuma</td><td>2</td><td>3</td><td>84.00</td></tr>
+<tr><td>Amazon Armor</td><td></td><td>60</td><td>Paladins</td><td>13</td><td>Distance Fighting +3</td><td>Nenhuma</td><td>2</td><td>4</td><td>45.00</td></tr>
+<tr><td>Arcane Dragon Robe</td><td></td><td>300</td><td>Sorcerers</td><td>15</td><td>Magic Level +3</td><td>Ice +12%, Fire -6%</td><td>1</td><td>4</td><td>43.00</td></tr>
+<tr><td>Nature Dragon Robe</td><td></td><td>300</td><td>Druids</td><td>15</td><td>Magic Level +3</td><td>Earth +12%, Fire -6%</td><td>1</td><td>4</td><td>43.00</td></tr>
+<tr><td>Ornate Chestplate</td><td></td><td>150</td><td>Knights and Paladins</td><td>19</td><td>Speed +10</td><td>Physical +5%</td><td>2</td><td>5</td><td>89.00</td></tr>
+<tr><td>Mystic Coat</td><td></td><td>250</td><td>Sorcerers and Druids</td><td>12</td><td>Magic Level +2</td><td>Ice +3%, Energy -3%</td><td>1</td><td>3</td><td>22.00</td></tr>
+<tr><td>Golden Armor</td><td></td><td>30</td><td>Knights</td><td>14</td><td>Nenhum</td><td>Physical +8%</td><td>2</td><td>3</td><td>80.00</td></tr>
+<tr><td>Monk Gi</td><td></td><td>100</td><td>Monks</td><td>10</td><td>Fist +3</td><td>Death +5%</td><td>1</td><td>3</td><td>30.00</td></tr>
+<tr><td>Leather Armor</td><td></td><td>1</td><td>Todas</td><td>4</td><td>Nenhum</td><td>Nenhuma</td><td>2</td><td>1</td><td>60.00</td></tr>
+<tr><td>Fire Robe</td><td></td><td>80</td><td>Sorcerers and Druids</td><td>11</td><td>Magic Level +1</td><td>Fire +8%, Ice -8%</td><td>1</td><td>3</td><td>28.00</td></tr>
+</tbody>
+</table>
+
+<h2>Espadas (colunas: Nome, Lvl, Voc, Mãos, Atq, Dano Elemental, Def, Bônus, Slots, Peso)</h2>
+<table class="sortable">
+<tbody>
+<tr><th><small>Nome</small></th><th></th><th><small>Lvl</small></th><th><small>Voc</small></th><th><small>Mãos</small></th><th><small>Atq</small></th><th><small>Dano Elemental</small></th><th><small>Def</small></th><th><small>Bônus</small></th><th><small>Slots</small></th><th><small>Peso</small></th></tr>
+<tr><td>Amber Sabre</td><td></td><td>330</td><td>Knights</td><td>Uma</td><td>20</td><td>46 Energy</td><td>32</td><td>Club Fighting +3</td><td>2</td><td>78.00</td></tr>
+<tr><td>Soul Sword</td><td></td><td>180</td><td>Knights</td><td>Duas</td><td>55</td><td>Nenhum</td><td>25</td><td>Sword Fighting +5</td><td>2</td><td>90.00</td></tr>
+<tr><td>Frostblade</td><td></td><td>220</td><td>Knights</td><td>Uma</td><td>45</td><td>20 Ice</td><td>28</td><td>Nenhum</td><td>2</td><td>65.00</td></tr>
+<tr><td>Flame Edge</td><td></td><td>120</td><td>Knights</td><td>Duas</td><td>48</td><td>22 Fire</td><td>22</td><td>Sword Fighting +2</td><td>1</td><td>88.00</td></tr>
+<tr><td>Sabreche</td><td></td><td>60</td><td>Knights</td><td>Uma</td><td>38</td><td>Nenhum</td><td>20</td><td>Nenhum</td><td>1</td><td>52.00</td></tr>
+</tbody>
+</table>
+
+<h2>Ferramentas (colunas: Nome, Atributos, Agrupável, Peso)</h2>
+<table class="sortable">
+<tbody>
+<tr><th><small>Nome</small></th><th></th><th><small>Atributos</small></th><th><small>Agrupável</small></th><th><small>Peso</small></th></tr>
+<tr><td>Artist's Brush</td><td></td><td>Nenhum.</td><td>Não</td><td>1.00</td></tr>
+<tr><td>Rope</td><td></td><td>Usada em buracos</td><td>Não</td><td>15.00</td></tr>
+<tr><td>Shovel</td><td></td><td>Usada em terra</td><td>Não</td><td>5.00</td></tr>
+<tr><td>Pick</td><td></td><td>Usada em pedras</td><td>Não</td><td>19.00</td></tr>
+<tr><td>Machete</td><td></td><td>Usada em plantas</td><td>Não</td><td>23.00</td></tr>
+<tr><td>Scythe</td><td></td><td>Usada em trigo</td><td>Não</td><td>18.00</td></tr>
+</tbody>
+</table>
+
+<script src="../content.js"></script>
+</body>
+</html>

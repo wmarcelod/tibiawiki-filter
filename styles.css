@@ -1,0 +1,163 @@
+.twf-panel {
+  font-family: sans-serif;
+  font-size: 0.875em;
+  line-height: 1.4;
+  color: #202122;
+  background-color: #f8f9fa;
+  border: 1px solid #a2a9b1;
+  border-radius: 2px;
+  padding: 0.5em 0.75em 0.6em;
+  margin: 1em 0;
+}
+
+.twf-panel * { box-sizing: border-box; }
+
+.twf-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid #c8ccd1;
+}
+
+.twf-title {
+  font-family: "Linux Libertine", "Georgia", "Times", serif;
+  font-size: 1.15em;
+  font-weight: normal;
+  color: #202122;
+  margin: 0;
+}
+.twf-title::before { content: ""; }
+
+.twf-count {
+  font-size: 0.85em;
+  color: #54595d;
+  font-style: italic;
+}
+
+.twf-clear,
+.twf-toggle {
+  font-family: inherit;
+  font-size: 0.85em;
+  background: #fff;
+  border: 1px solid #a2a9b1;
+  border-radius: 2px;
+  padding: 1px 8px;
+  cursor: pointer;
+  color: #202122;
+  line-height: 1.4;
+}
+.twf-clear:hover,
+.twf-toggle:hover {
+  background: #eaecf0;
+  border-color: #72777d;
+}
+.twf-toggle {
+  margin-left: auto;
+  min-width: 24px;
+}
+
+.twf-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.4em 0.6em;
+}
+
+.twf-col {
+  background: #fff;
+  border: 1px solid #c8ccd1;
+  border-radius: 2px;
+  padding: 0.3em 0.5em 0.4em;
+  min-width: 0;
+}
+
+.twf-col-name,
+.twf-col-text,
+.twf-col-vocation,
+.twf-col-element {
+  grid-column: span 2;
+}
+
+.twf-col-title {
+  font-weight: bold;
+  font-size: 0.85em;
+  color: #54595d;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 0.25em;
+  padding-bottom: 0.15em;
+  border-bottom: 1px dotted #c8ccd1;
+}
+
+.twf-col-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 4px;
+  align-items: center;
+}
+
+.twf-input {
+  border: 1px solid #a2a9b1;
+  border-radius: 2px;
+  padding: 2px 6px;
+  font-size: 0.95em;
+  font-family: inherit;
+  background: #fff;
+  color: #202122;
+  line-height: 1.4;
+}
+.twf-input:focus {
+  outline: none;
+  border-color: #3366cc;
+  box-shadow: 0 0 0 1px #3366cc;
+}
+.twf-wide { width: 100%; }
+.twf-small { width: 70px; flex: 0 0 70px; }
+
+.twf-range {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.twf-range-alt {
+  background: #eaf3ff;
+  border: 1px solid #c5dbf4;
+  border-radius: 2px;
+  padding: 1px 4px;
+  margin-left: 4px;
+}
+.twf-dash { color: #72777d; }
+
+.twf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #fff;
+  border: 1px solid #a2a9b1;
+  border-radius: 2px;
+  padding: 1px 7px 1px 5px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9em;
+  color: #202122;
+  line-height: 1.4;
+}
+.twf-chip:hover {
+  background: #eaecf0;
+  border-color: #72777d;
+}
+.twf-chip input {
+  margin: 0;
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  accent-color: #3366cc;
+}
+.twf-chip.twf-chip-on {
+  background: #a7d7f9;
+  border-color: #3366cc;
+  color: #0645ad;
+  font-weight: bold;
+}

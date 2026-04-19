@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "TibiaWiki Filtro",
+  "version": "1.0.0",
+  "description": "Adiciona filtros (vocacao, protecao, nivel, nome) nas tabelas do TibiaWiki BR.",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.tibiawiki.com.br/*",
+        "*://tibiawiki.com.br/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
