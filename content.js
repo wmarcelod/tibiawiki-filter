@@ -88,6 +88,8 @@
     const unique = new Set(meaningful.map((v) => v.toLowerCase()));
     if (unique.size > 0 && unique.size <= 8 && meaningful.length >= unique.size * 2) return "enum";
 
+    if (meaningful.length >= 3 && unique.size / meaningful.length >= 0.8) return "skip";
+
     return "text";
   }
 
