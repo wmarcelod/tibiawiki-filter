@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "TibiaWiki Filtro",
-  "version": "1.0.0",
-  "description": "Adiciona filtros (vocacao, protecao, nivel, nome) nas tabelas do TibiaWiki BR.",
+  "version": "1.1.0",
+  "description": "Filtros dinamicos nas tabelas do TibiaWiki BR + bloqueio de anuncios e popups.",
   "content_scripts": [
     {
       "matches": [
@@ -12,6 +12,26 @@
       "js": ["content.js"],
       "css": ["styles.css"],
       "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://www.tibiawiki.com.br/*",
+        "*://tibiawiki.com.br/*"
+      ],
+      "js": ["popup_blocker.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": true
     }
-  ]
+  ],
+  "permissions": ["declarativeNetRequest"],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "adblock_rules",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
 }

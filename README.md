@@ -1,6 +1,20 @@
 # TibiaWiki Filtro
 
-Extensao Chrome que adiciona filtros dinamicos nas tabelas do TibiaWiki BR (https://www.tibiawiki.com.br).
+Extensao Chrome que adiciona filtros dinamicos nas tabelas do TibiaWiki BR (https://www.tibiawiki.com.br) e bloqueia anuncios/popups da pagina.
+
+## Bloqueio de ads
+
+Via `declarativeNetRequest` a extensao bloqueia requisicoes aos dominios usados pelo wiki pra servir anuncios:
+
+- `banners.tibiabr.com` (Revive ad server)
+- `premiumads.com.br` (PremiumAds / DFP)
+- `googletagmanager.com`, `google-analytics.com`, `googlesyndication.com`, `doubleclick.net`, `adservice.google.com`
+- `connect.facebook.net`, `facebook.com/tr` (Meta Pixel)
+
+Alem do bloqueio de rede:
+- CSS esconde `<ins data-revive-zoneid>` e outros containers de ad
+- MutationObserver remove elementos de ad injetados dinamicamente
+- Override de `window.open` (main world) mata popunders que tentam abrir URL de rede de anuncios
 
 ## Como funciona
 

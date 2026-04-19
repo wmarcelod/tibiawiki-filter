@@ -88,11 +88,36 @@
     ).length;
     if (vocish / meaningful.length > 0.85) return "vocation";
 
+    const commaValues = meaningful.filter((v) => v.includes(","));
+    if (commaValues.length >= 2) {
+      const tokens = new Set();
+      for (const v of meaningful) {
+        for (const t of v.split(",").map((s) => s.trim().toLowerCase())) {
+          if (t) tokens.add(t);
+        }
+      }
+      if (tokens.size >= 2 && tokens.size <= 20) return "multienum";
+    }
+
     if (unique.size > 0 && unique.size <= 15 && meaningful.length >= unique.size * 2) return "enum";
 
     if (mostlyUnique) return "skip";
 
     return "text";
+  }
+
+  function collectMultiTokens(samples) {
+    const set = new Map();
+    for (const s of samples) {
+      if (!s || isEmptyish(s)) continue;
+      for (const raw of s.split(",")) {
+        const t = raw.trim();
+        if (!t) continue;
+        const key = t.toLowerCase();
+        if (!set.has(key)) set.set(key, t);
+      }
+    }
+    return Array.from(set.values()).sort((a, b) => a.localeCompare(b, "pt-br", { sensitivity: "base" }));
   }
 
   function collectEnumValues(samples) {
@@ -173,6 +198,15 @@
             `<label class="twf-chip"><input type="checkbox" class="twf-chk" data-kind="enum" value="${esc(v)}"><span>${esc(v)}</span></label>`
         )
         .join("");
+    } else if (type === "multienum") {
+      const toks = collectMultiTokens(samples);
+      if (toks.length < 2) return null;
+      body = toks
+        .map(
+          (v) =>
+            `<label class="twf-chip"><input type="checkbox" class="twf-chk" data-kind="multi" value="${esc(v.toLowerCase())}"><span>${esc(v)}</span></label>`
+        )
+        .join("");
     } else if (type === "numenum") {
       const nums = Array.from(
         new Set(samples.filter((s) => isPureNumeric((s || "").trim())).map((s) => parseFloat(s.replace(",", "."))))
@@ -241,6 +275,12 @@
       if (!sel.length) return true;
       return sel.some((v) => v === low);
     }
+    if (type === "multienum") {
+      const sel = Array.from(colFilter.querySelectorAll('[data-kind="multi"]:checked')).map((x) => x.value);
+      if (!sel.length) return true;
+      const cellTokens = new Set(low.split(",").map((s) => s.trim()).filter(Boolean));
+      return sel.some((v) => cellTokens.has(v));
+    }
     if (type === "numenum") {
       const sel = Array.from(colFilter.querySelectorAll('[data-kind="numenum"]:checked')).map((x) => parseFloat(x.value));
       if (!sel.length) return true;
@@ -264,7 +304,7 @@
     const dataRows = trs.slice(1).filter((tr) => tr.querySelectorAll(":scope > td").length >= Math.max(2, headers.length - 2));
     if (dataRows.length < 3) return;
 
-    const sampleRows = dataRows.slice(0, Math.min(80, dataRows.length));
+    const sampleRows = dataRows;
 
     const colInfos = headers.map((th, idx) => {
       const samples = sampleRows.map((tr) => cellText(tr.children[idx]));
@@ -343,8 +383,46 @@
     apply();
   }
 
+  const AD_SELECTORS = [
+    "ins[data-revive-zoneid]",
+    "ins[data-revive-id]",
+    "ins.adsbygoogle",
+    'iframe[src*="banners.tibiabr"]',
+    'iframe[src*="premiumads"]',
+    'iframe[src*="googlesyndication"]',
+    'iframe[src*="doubleclick"]',
+    'iframe[src*="googletagmanager"]',
+    'script[src*="banners.tibiabr"]',
+    'script[src*="premiumads"]',
+    'script[src*="googletagmanager"]',
+    'script[src*="connect.facebook.net"]',
+    'script[src*="doubleclick"]',
+    'script[src*="googlesyndication"]',
+  ].join(",");
+
+  function stripAds(root) {
+    try {
+      (root || document).querySelectorAll(AD_SELECTORS).forEach((el) => el.remove());
+    } catch (e) {}
+  }
+
+  function watchAds() {
+    stripAds(document);
+    const mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const n of m.addedNodes) {
+          if (n.nodeType !== 1) continue;
+          if (n.matches && n.matches(AD_SELECTORS)) n.remove();
+          else stripAds(n);
+        }
+      }
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
   function init() {
     document.querySelectorAll("table").forEach(enhanceTable);
+    watchAds();
   }
 
   if (document.readyState === "loading") {

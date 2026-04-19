@@ -1,3 +1,31 @@
+ins[data-revive-zoneid],
+ins[data-revive-id],
+ins.adsbygoogle,
+iframe[src*="banners.tibiabr"],
+iframe[src*="premiumads"],
+iframe[src*="googlesyndication"],
+iframe[src*="doubleclick"],
+iframe[src*="googletagmanager"],
+div[id^="google_ads"],
+div[id^="div-gpt-ad"],
+div[class*="banner-ad"],
+div[id*="banner_ad"],
+.ad-container,
+.ad-wrapper,
+.ads-container,
+#ad-top, #ad-bottom, #ad-sidebar {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  max-width: 0 !important;
+  max-height: 0 !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
 .twf-panel {
   font-family: sans-serif;
   font-size: 0.875em;
