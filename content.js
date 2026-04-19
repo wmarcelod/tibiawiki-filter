@@ -57,12 +57,15 @@
 
   function inferColType(header, samples) {
     const h = norm(header);
+    const meaningful = samples.map((s) => s.trim()).filter((v) => !isEmptyish(v));
+    const unique = new Set(meaningful.map((v) => v.toLowerCase()));
+    const mostlyUnique = meaningful.length >= 3 && unique.size / meaningful.length >= 0.8;
+
     if (h.includes("voc")) return "vocation";
     if (h.includes("proteç") || h.includes("protec")) return "element";
     if (h.includes("dano elemental") || h.includes("elemento")) return "element";
-    if (h === "nome" || h.includes("name")) return "name";
+    if (h === "nome" || h.includes("name")) return mostlyUnique ? "skip" : "name";
 
-    const meaningful = samples.map((s) => s.trim()).filter((v) => !isEmptyish(v));
     if (!meaningful.length) return "skip";
 
     const numericVals = meaningful.filter((v) => isPureNumeric(v));
@@ -85,10 +88,9 @@
     ).length;
     if (vocish / meaningful.length > 0.85) return "vocation";
 
-    const unique = new Set(meaningful.map((v) => v.toLowerCase()));
-    if (unique.size > 0 && unique.size <= 8 && meaningful.length >= unique.size * 2) return "enum";
+    if (unique.size > 0 && unique.size <= 15 && meaningful.length >= unique.size * 2) return "enum";
 
-    if (meaningful.length >= 3 && unique.size / meaningful.length >= 0.8) return "skip";
+    if (mostlyUnique) return "skip";
 
     return "text";
   }
