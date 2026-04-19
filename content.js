@@ -68,7 +68,8 @@
     const numericVals = meaningful.filter((v) => isPureNumeric(v));
     if (numericVals.length / meaningful.length > 0.7) {
       const distinct = new Set(numericVals.map((v) => parseFloat(v.replace(",", "."))));
-      if (distinct.size >= 2 && distinct.size <= 8) return "numenum";
+      if (distinct.size < 2) return "skip";
+      if (distinct.size <= 8) return "numenum";
       return "number";
     }
 
@@ -101,6 +102,15 @@
     return Array.from(set.values()).sort((a, b) => a.localeCompare(b, "pt-br", { sensitivity: "base" }));
   }
 
+  function collectPresentVocations(samples) {
+    const found = new Set();
+    for (const s of samples) {
+      const low = (s || "").toLowerCase();
+      for (const v of VOCATIONS) if (low.includes(v.toLowerCase())) found.add(v);
+    }
+    return VOCATIONS.filter((v) => found.has(v));
+  }
+
   function collectElementTypes(samples) {
     const found = new Set();
     for (const s of samples) {
@@ -108,7 +118,7 @@
     }
     const ordered = [];
     for (const e of ELEMENTS) if (found.has(e.toLowerCase())) ordered.push(e);
-    return ordered.length ? ordered : ELEMENTS;
+    return ordered;
   }
 
   function esc(s) {
@@ -129,11 +139,16 @@
     } else if (type === "number") {
       body = `<span class="twf-range"><input type="number" class="twf-input twf-small" data-kind="min" placeholder="min" step="any"><span class="twf-dash">–</span><input type="number" class="twf-input twf-small" data-kind="max" placeholder="max" step="any"></span>`;
     } else if (type === "vocation") {
-      body = VOCATIONS.map(
-        (v) => `<label class="twf-chip"><input type="checkbox" class="twf-chk" data-kind="voc" value="${v}"><span>${v}</span></label>`
-      ).join("");
+      const present = collectPresentVocations(samples);
+      if (present.length < 2) return null;
+      body = present
+        .map(
+          (v) => `<label class="twf-chip"><input type="checkbox" class="twf-chk" data-kind="voc" value="${v}"><span>${v}</span></label>`
+        )
+        .join("");
     } else if (type === "element") {
       const els = collectElementTypes(samples);
+      if (!els.length) return null;
       body =
         els
           .map(
